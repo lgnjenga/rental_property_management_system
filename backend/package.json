@@ -4,7 +4,8 @@
   "description": "rental property management system",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "NODE_ENV=production node server",
+    "dev": "nodemon server"
   },
   "author": "Gatonye",
   "license": "ISC",
