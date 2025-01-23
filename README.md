@@ -1,1 +1,1 @@
-# Rental Property Management System
+# Rental Property Managament System
