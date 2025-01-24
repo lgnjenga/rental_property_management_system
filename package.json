@@ -7,16 +7,8 @@
     "start": "node server.js",
     "server": "nodemon server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://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@github.com/lgnjenga/rental_property_management_system.git"
-  },
   "author": "Lawrence Gatonye Njenga",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/lgnjenga/rental_property_management_system/issues"
-  },
-  "homepage": "https://github.com/lgnjenga/rental_property_management_system#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "config": "^3.3.12",
