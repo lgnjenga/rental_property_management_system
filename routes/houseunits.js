@@ -8,6 +8,13 @@ router.get('/', (req, res) => {
     res.send('Get all House Units');
 });
 
+// @route      GET api/houseunits/:id
+// @desc       Get Single House Unit
+// @access     Private
+router.get('/:id', (req, res) => {
+    res.send('Get Single House Unit');
+});
+
 // @route      POST api/houseunits
 // @desc       Add New House Unit
 // @access     Private

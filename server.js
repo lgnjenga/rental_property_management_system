@@ -1,6 +1,10 @@
 const express = require('express');
+const connectDB = require('./config/db');
 
 const app = express();
+
+// Connect Database
+connectDB();
 
 // Route
 app.get('/', (req, res) => res.json({ msg: 'Welcome to Rental Property Management System API Part 1...' }));

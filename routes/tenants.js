@@ -8,6 +8,13 @@ router.get('/', (req, res) => {
     res.send('Get all Tenants');
 });
 
+// @route      GET api/tenants/:id
+// @desc       Get Single Tenant
+// @access     Private
+router.get('/:id', (req, res) => {
+    res.send('Get Single Tenant');
+});
+
 // @route      POST api/tenants
 // @desc       Add New Tenant
 // @access     Private
