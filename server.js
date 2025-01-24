@@ -6,6 +6,9 @@ const app = express();
 // Connect Database
 connectDB();
 
+// Init Middleware
+app.use(express.json({ extended: false }));
+
 // Route
 app.get('/', (req, res) => res.json({ msg: 'Welcome to Rental Property Management System API Part 1...' }));
 
