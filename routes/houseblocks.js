@@ -1,11 +1,23 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../middleware/auth');
+const { check, validationResult } = require('express-validator');
+
+// const User = require('../models/User');
+const Houseblock = require('../models/Houseblock');
 
 // @route      GET api/houseblocks
 // @desc       Get all House Blocks
 // @access     Private
-router.get('/', (req, res) => {
-    res.send('Get all House Blocks');
+router.get('/', auth, async (req, res) => {
+    // res.send('Get all House Blocks');
+    try {
+        const houseblocks = await Houseblock.find({ user: req.user.id }).sort({ date: -1 });
+        res.json(houseblocks);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+    }
 });
 
 // @route      GET api/houseblocks/:id

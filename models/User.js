@@ -17,7 +17,15 @@ const UserSchema = mongoose.Schema({
   date: {
     type: Date,
     default: Date.now
-  }
+  },
+  /*
+  houseBlocks: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "houseblocks",
+    },
+  ],
+  */
 });
 
 module.exports = mongoose.model('user', UserSchema);
