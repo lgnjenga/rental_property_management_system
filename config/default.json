@@ -1,3 +1,4 @@
 {
-    "mongoURI": "mongodb+srv://lgnjenga:lgnjenga@rentalmanagementdb.klwps.mongodb.net/?retryWrites=true&w=majority&appName=rentalmanagementdb"
+    "mongoURI": "mongodb+srv://lgnjenga:lgnjenga@rentalmanagementdb.klwps.mongodb.net/?retryWrites=true&w=majority&appName=rentalmanagementdb",
+    "jwtSecret": "secret"
 }
