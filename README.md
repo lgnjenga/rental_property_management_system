@@ -57,7 +57,7 @@ To run the project in different environments:
    npm start
    ```
 
-The application will be available at [http://localhost:3000](http://localhost:3000).
+The application will be available at [http://localhost:3000](http://localhost:5000).
 
 ### Development Environment
 
