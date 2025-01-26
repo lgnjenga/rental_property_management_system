@@ -127,8 +127,20 @@ router.put('/:id', auth, async (req, res) => {
 // @route      DELETE api/tenants/:id
 // @desc       Delete Tenant
 // @access     Private
-router.delete('/:id', (req, res) => {
-    res.send('Delete Tenant');
+router.delete('/:id', auth, async (req, res) => {
+    // res.send('Delete Tenant');
+    try {
+        const tenant = await Tenant.findById(req.params.id);
+        if(!tenant) return res.status(400).json({ msg: 'Tenant Not Found' });
+        
+        await Tenant.findByIdAndDelete(req.params.id);
+                
+        res.json({ msg: 'Tenant removed' });
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
 });
 
 module.exports = router;

@@ -131,8 +131,20 @@ router.put('/:id', auth, async (req, res) => {
 // @route      DELETE api/houseunits/:id
 // @desc       Delete House Unit
 // @access     Private
-router.delete('/:id', (req, res) => {
-    res.send('Delete House Unit');
+router.delete('/:id', auth, async (req, res) => {
+    // res.send('Delete House Unit');
+    try {
+        const houseunit = await Houseunit.findById(req.params.id);
+        if(!houseunit) return res.status(400).json({ msg: 'House Unit Not Found' });
+
+        await Houseunit.findByIdAndDelete(req.params.id);
+        
+        res.json({ msg: 'House Unit removed' });        
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
 });
 
 module.exports = router;

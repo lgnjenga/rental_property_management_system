@@ -113,8 +113,20 @@ router.put('/:id', auth, async (req, res) => {
 // @route      DELETE api/houseblocks/:id
 // @desc       Delete House Block
 // @access     Private
-router.delete('/:id', (req, res) => {
-    res.send('Delete House Block');
+router.delete('/:id', auth, async (req, res) => {
+    // res.send('Delete House Block');
+    try {
+        const houseblock = await Houseblock.findById(req.params.id);
+        if(!houseblock) return res.status(400).json({ msg: 'House Block Not Found' });
+
+        await Houseblock.findByIdAndDelete(req.params.id);
+
+        res.json({ msg: 'House Block removed' });
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
 });
 
 module.exports = router;
