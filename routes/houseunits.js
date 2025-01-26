@@ -98,8 +98,34 @@ router.post('/', [auth, [
 // @route      PUT api/houseunits/:id
 // @desc       Update House Unit
 // @access     Private
-router.put('/:id', (req, res) => {
-    res.send('Update House Unit');
+router.put('/:id', auth, async (req, res) => {
+    // res.send('Update House Unit');
+    const { houseNumber, rentPaid, waterBillPaid, rentDeposit, damages, rentArrears, month, year, houseblockName  } = req.body;
+
+    // Build Houseunit Object
+    const houseunitFields = {};
+    if(houseNumber) houseunitFields.houseNumber = houseNumber;
+    if(rentPaid) houseunitFields.rentPaid = rentPaid;
+    if(waterBillPaid) houseunitFields.waterBillPaid = waterBillPaid;
+    if(rentDeposit) houseunitFields.rentDeposit = rentDeposit;
+    if(damages) houseunitFields.damages = damages;
+    if(rentArrears) houseunitFields.rentArrears = rentArrears;
+    if(month) houseunitFields.month = month;
+    if(year) houseunitFields.year = year;
+    if(houseblockName) houseunitFields.houseblockName = houseblockName;
+
+    try {
+        let houseunit = await Houseunit.findById(req.params.id);
+        if(!houseunit) return res.status(400).json({ msg: 'House Unit Not Found' });
+
+        houseunit = await Houseunit.findByIdAndUpdate(req.params.id, { $set: houseunitFields }, { new: true });
+        
+        res.json(houseunit);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+
 });
 
 // @route      DELETE api/houseunits/:id

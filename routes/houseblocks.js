@@ -79,8 +79,35 @@ router.post('/', [auth, [
 // @route      PUT api/houseblocks/:id
 // @desc       Update House Block
 // @access     Private
-router.put('/:id', (req, res) => {
-    res.send('Update House Block');
+router.put('/:id', auth, async (req, res) => {
+    // res.send('Update House Block');
+    const { houseBlockName, salaryToCaretaker, electricityBill, waterBill, landTax, propertyManagementAgencyFee, rentDepositRefunds, miscellaneousExpenses, month, year } = req.body;
+
+    // Build Houseblock object
+    const houseblockFields = {};
+    if(houseBlockName) houseblockFields.houseBlockName = houseBlockName;
+    if(salaryToCaretaker) houseblockFields.salaryToCaretaker = salaryToCaretaker;
+    if(electricityBill) houseblockFields.electricityBill = electricityBill;
+    if(waterBill) houseblockFields.waterBill = waterBill;
+    if(landTax) houseblockFields.landTax = landTax;
+    if(propertyManagementAgencyFee) houseblockFields.propertyManagementAgencyFee = propertyManagementAgencyFee;
+    if(rentDepositRefunds) houseblockFields.rentDepositRefunds = rentDepositRefunds;
+    if(miscellaneousExpenses) houseblockFields.miscellaneousExpenses = miscellaneousExpenses;
+    if(month) houseblockFields.month = month;
+    if(year) houseblockFields.year = year;
+
+    try {
+        let houseblock = await Houseblock.findById(req.params.id);
+        if(!houseblock) return res.status(400).json({ msg: 'House Block Not Found' });
+
+        houseblock = await Houseblock.findByIdAndUpdate(req.params.id, { $set: houseblockFields }, { new: true });
+
+        res.json(houseblock);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+
 });
 
 // @route      DELETE api/houseblocks/:id

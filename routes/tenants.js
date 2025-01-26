@@ -96,8 +96,32 @@ router.post('/',  [auth, [
 // @route      PUT api/tenants/:id
 // @desc       Update Tenant
 // @access     Private
-router.put('/:id', (req, res) => {
-    res.send('Update Tenant');
+router.put('/:id', auth, async (req, res) => {
+    // res.send('Update Tenant');
+    const { name, email, phoneNumber, idNumber, month, year, housenumber  } = req.body;
+
+    // Build Houseunit Object
+    const tenantFields = {};
+    if(name) tenantFields.name = name;
+    if(email) tenantFields.email = email;
+    if(phoneNumber) tenantFields.phoneNumber = phoneNumber;
+    if(idNumber) tenantFields.idNumber = idNumber;
+    if(month) tenantFields.month = month;
+    if(year) tenantFields.year = year;
+    if(housenumber) tenantFields.housenumber = housenumber;
+
+    try {
+        let tenant = await Tenant.findById(req.params.id);
+        if(!tenant) return res.status(400).json({ msg: 'Tenant Not Found' });
+
+        tenant = await Tenant.findByIdAndUpdate(req.params.id, { $set: tenantFields }, { new: true });
+                
+        res.json(tenant);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+
 });
 
 // @route      DELETE api/tenants/:id
