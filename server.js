@@ -13,11 +13,11 @@ app.use(express.json({ extended: false }));
 app.get('/', (req, res) => res.json({ msg: 'Welcome to Rental Property Management System API Part 1...' }));
 
 // Define Routes
-app.use('/api/users', require('./routes/users'));
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/houseblocks', require('./routes/houseblocks'));
-app.use('/api/houseunits', require('./routes/houseunits'));
-app.use('/api/tenants', require('./routes/tenants'));
+app.use('/api/v1/users', require('./routes/users'));
+app.use('/api/v1/auth', require('./routes/auth'));
+app.use('/api/v1/houseblocks', require('./routes/houseblocks'));
+app.use('/api/v1/houseunits', require('./routes/houseunits'));
+app.use('/api/v1/tenants', require('./routes/tenants'));
 
 const PORT = process.env.PORT || 5000;
 
