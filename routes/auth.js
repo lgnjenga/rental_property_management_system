@@ -14,13 +14,34 @@ const User = require('../models/User');
 router.get('/', auth, async (req, res) => {
     // res.send('Get Logged in User');
     try {
-        const user = await User.findById(req.user.id).select('-password');
-        res.json(user);
+        // const user = await User.findById(req.user.id).select('-password'); // Find user by Id
+        const users = await User.find(); // Find all users
+        res.json(users);
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
     }
 });
+
+// @route      GET api/auth/:id
+// @desc       Get User by ID
+// @access     Private
+router.get('/:id', auth, async (req, res) => {
+    // Get user by ID
+    try {
+      const user = await User.findById(req.params.id).select('-password'); // Find user by ID and exclude password
+      if (!user) {
+        return res.status(404).json({ msg: 'User not found' });
+      }
+      res.json(user);
+    } catch (err) {
+      console.error(err.message);
+      if (err.kind === 'ObjectId') {
+        return res.status(404).json({ msg: 'User not found' });
+      }
+      res.status(500).send('Server Error');
+    }
+  });
 
 // @route      POST api/auth
 // @desc       Auth User and get Token

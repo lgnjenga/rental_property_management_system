@@ -27,10 +27,18 @@ const TenantSchema = new mongoose.Schema({
       type: Number,
       required: true,
     },
+    /*
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users'
     },
+    */
+    houseunit: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'houseunits',
+        required: true,
+        unique: true, // Ensure only one tenant per house unit
+    },
   });
 
-module.exports = mongoose.model('tenant', TenantSchema);
+module.exports = mongoose.model('tenants', TenantSchema);

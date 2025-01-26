@@ -1,7 +1,12 @@
 const mongoose = require('mongoose');
+const HouseUnit = require('./Houseunit');
 
 // House Block Schema
 const HouseBlockSchema = new mongoose.Schema({
+    houseBlockName: {
+        type: String,
+        required: true,
+    },
     salaryToCaretaker: {
       type: Number,
       default: 0,
@@ -38,23 +43,26 @@ const HouseBlockSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    /*
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'users'
+        ref: 'users',
+        required: true,
     },
+    */
+    /*
     houseunit: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'houseunits',
         required: true,
     },
-    /*
+    */
     houseUnits: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "houseunits",
       },
     ],
-    */
   });
 
-module.exports = mongoose.model('houseblock', HouseBlockSchema);
+module.exports = mongoose.model('houseblocks', HouseBlockSchema);

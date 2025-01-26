@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Tenant = require('./Tenant');
 
 // House Unit Schema
 const HouseUnitSchema = new mongoose.Schema({
@@ -34,14 +35,23 @@ const HouseUnitSchema = new mongoose.Schema({
       type: Number,
       required: true,
     },
+    /*
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users'
     },
-    tenant: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "tenants",
+    */
+    houseblock: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'houseblocks'
     },
+    tenant: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "tenants"
+            // unique: true // Ensure only one tenant per house unit
+        }
+    ],
   });
 
-  module.exports = mongoose.model('houseunit', HouseUnitSchema);
+  module.exports = mongoose.model('houseunits', HouseUnitSchema);
